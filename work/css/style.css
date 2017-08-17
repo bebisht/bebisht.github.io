@@ -1173,3 +1173,4 @@ form-control:focus {
     font-size: 15px !important;
 }
 }
+* { outline:none !important;} 
