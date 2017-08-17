@@ -1067,17 +1067,20 @@ form-control:focus {
     font-size: 12px !important;
 }
 .bannerMidTittle .headingTittle {
-    font-size: 3em;
+    font-size: 3.2em;
     white-space: pre-line;
     line-height: 120%;
     width: 100%;
 }
 .bannerMidTittle p {
-    font-size: 13px;
-    line-height: 200%;
+    font-size: 15px;
+    line-height: 220%;
     width: 100%;
+    white-space: normal;
 }
-
+.bannerMidTittle a {
+    margin: auto;
+}
 .btnSection .btn-default{
 		margin: 30px auto;
 }
