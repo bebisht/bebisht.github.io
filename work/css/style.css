@@ -1177,3 +1177,11 @@ form-control:focus {
 }
 }
 * { outline:none !important;} 
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 640px)
+  and (orientation: landscape) {
+.heightFull {
+    margin: 50px 0 !important;
+}
+}
