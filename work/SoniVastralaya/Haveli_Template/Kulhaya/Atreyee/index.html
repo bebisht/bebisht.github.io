@@ -8,7 +8,7 @@
 			<meta name="description" content="" />
 			<meta name="keywords" content="" />
 			<link rel="shortcut icon" href="img/favi.png">
-	</head>
+			<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css" />
 	<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css"/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -21,7 +21,7 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation/foundation.reveal.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
 	<style>
 	@font-face {
 		font-family: futura;
@@ -287,7 +287,7 @@
 						<p>info@aquafire.com</p>
 						<div class="fee"><a href="#" id="myModal">FEEDBACK</a></div>
 					</div>
-					
+
 
 				</div>
 			</div>
@@ -315,7 +315,7 @@
 		        e.preventDefault();
 		        var $target = $(this).attr('href');
 		        var height = $('div'+$target+'').offset().top;
-		        $('html, body').stop().animate({ 
+		        $('html, body').stop().animate({
 		              scrollTop: height
 		          }, 1000);
 		        e.preventDefault();
@@ -325,9 +325,9 @@
 </script>
 <script>
 $(document).ready(function() {
-     
+
       $("#owl-demo-him").owlCarousel({
-     
+
           navigation : false, // Show next and prev buttons
           loop:true,
           slideSpeed : 300,
@@ -336,39 +336,39 @@ $(document).ready(function() {
           items : 1,
           itemsDesktop : true,
           itemsDesktopSmall : true,
-          
+
          itemsTablet: true,
           itemsMobile : true,
           autoplay:true,
           autoplayTimeout:3000,
           autoplayHoverPause:true
-     
+
       });
-     
-	 var aside = $('aside.mobile-menu'); 
+
+	 var aside = $('aside.mobile-menu');
 	 $(aside).css('right',$(this).width() * -1);
 	 $('.mobile-header .menu-dropdown a').click(function(e){
 		e.preventDefault();
 		if($(aside).hasClass('expand'))
 		{
-		$('.inner-wrap').animate({ 
+		$('.inner-wrap').animate({
 			left:0
 		 },'slow');
-		 $(aside).animate({ 
+		 $(aside).animate({
 			right:$(aside).width() * -1
 		 },'slow').removeClass('expand');
 		}
 		else{
-		$('.inner-wrap').animate({ 
+		$('.inner-wrap').animate({
 			left:$(aside).width() * -1
 		 },'slow');
-		 $(aside).animate({ 
+		 $(aside).animate({
 			right:0
 		 },'slow').addClass('expand');
 		 }
 	 });
-	 
-	 $('a#myModal').click(function(e){  
+
+	 $('a#myModal').click(function(e){
 		e.preventDefault();
 		$('.modal_bg').fadeIn(500);
 	 });
