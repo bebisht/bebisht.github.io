@@ -1,0 +1,724 @@
+
+<!--- Login --------- -->
+<div ng-init="fblogin='<?php echo $this->fblogin; ?>'"></div>
+<div class="page-text" ng-if="showloginsign==1">
+  <div class="appypie-login">
+    <h2 ng-class="paHeSize"><?php echo $this->translate('DONT_HAVE_ACCOUNT');?> <a href="javascript:;" ng-click="showlogin('signupnow')"><?php echo $this->translate('SIGNUP_NOW');?></a></h2>
+    <div class="login-feald">
+      <label><?php echo $this->translate('EMAIL_ID');?></label>
+      <input type="text" name="email" id="email" ng-model="scSignEmail" class="form-control">
+    </div>
+    <div class="login-feald">
+      <label><?php echo $this->translate('PASSWORD');?></label>
+      <input type="password" name="password" id="password" ng-model="scSignPass" class="form-control">
+    </div>
+    <div class="login-feald"><a class="login_btn button {{pageFontFamily}} {{ pContSize.class }}" ng-style="{'background-color': primaryButtonBgColor,'color': buttonTextColor}" href="javascript:;" ng-click="signin('<?php echo $this->appId; ?>','<?php echo $this->uploadMode; ?>',scSignEmail, scSignPass);closepanelview()"><?php echo $this->translate('LOGIN');?></a></div>
+    <div class="login-feald">
+      <div class="fb-div"><a href="javascript:;" ng-click="showlogin('forgotpass');closepanelview()" class="f-right"><?php echo $this->translate('FORGOT_PASSWORD');?> ?</a> <br clear="all">
+        <div ng-show="fblogin=='On'" class="or-feald"><span><?php echo $this->translate('SC_OR');?></span></div>
+        <a ng-show="fblogin=='On'" class="login_btn fbicon" href="javascript:;" ng-click="showmsgSocial('showmsg', 'YES')"><span class="icon-facebook-1"></span> <?php echo $this->translate('CONNECT_WITH');?> <?php echo $this->translate('FACEBOOK');?></a> </div>
+    </div>
+  </div>
+</div>
+<!--- Forgot Password --------- -->
+<div class="page-text" ng-if="showloginsign=='forgotpass'">
+  <div class="appypie-login forgot-pss" id="forget_div">
+    <h2 ng-class="paHeSize"><?php echo $this->translate('FORGOT_PASSWORD');?></h2>
+    <div class="login-feald">
+      <label><?php echo $this->translate('EMAIL_ID');?></label>
+      <input type="email" name="forgotEmail" id="forgotEmail" ng-model="scForgotEmail" class="form-control">
+    </div>
+    <div class="login-feald"><a class="login_btn button {{pageFontFamily}} {{ pContSize.class }}" ng-style="{'background-color': primaryButtonBgColor,'color': buttonTextColor}" href="javascript:;" ng-click="forgotPassword('<?php echo $this->appId; ?>','<?php echo $this->uploadMode; ?>',scForgotEmail);closepanelview()"><?php echo $this->translate('RESET_PASSWORD');?></a></div>
+    <div class="fb-div"><a href="javascript:;" ng-click="showlogin(1);closepanelview()"><?php echo $this->translate('SIGNIN');?></a></div>
+  </div>
+</div>
+<!--- Register --------- -->
+<div class="page-text" ng-if="showloginsign=='signupnow'">
+  <div class="appypie-login" id="signup_div">
+    <h2 ng-class="paHeSize"><?php echo $this->translate('SIGNUP_NOW');?> </h2>
+    <div class="login-feald">
+      <label><span><?php echo $this->translate('NAME');?></span><sup class="red-astrick">*</sup></label>
+      <input type="text" name="sc_name" id="sc_name" ng-model="scName" class="form-control">
+    </div>
+    <div class="login-feald">
+      <label><span><?php echo $this->translate('EMAIL_ID');?></span><sup class="red-astrick">*</sup></label>
+      <input type="text" name="sc_email" id="sc_email" ng-model="scEmail" class="form-control">
+    </div>
+    <div class="login-feald">
+      <label><span><?php echo $this->translate('PASSWORD');?></span><sup class="red-astrick">*</sup></label>
+      <input type="password" name="sc_password" id="sc_password" ng-model="scPassword" class="form-control">
+    </div>
+    <div class="login-feald">
+      <label><span><?php echo $this->translate('CONFIRM_PASSWORD');?></span><sup class="red-astrick">*</sup></label>
+      <input type="password" name="sc_cpassword" id="sc_cpassword" ng-model="scCpassword" class="form-control">
+    </div>
+    <div class="login-feald"><a class="login_btn button {{pageFontFamily}} {{ pContSize.class }}" ng-style="{'background-color': primaryButtonBgColor,'color': buttonTextColor}" href="javascript:;" ng-click="signup('<?php echo $this->appId; ?>','<?php echo $this->uploadMode; ?>',scName,scEmail,scPassword,scCpassword);closepanelview()"><?php echo $this->translate('SIGNUP');?></a></div>
+    <br>
+    <div class="fb-div"><span><?php echo $this->translate('HAVE_ALREADY_ACCOUNT');?>?</span> <a href="javascript:;" ng-click="showlogin(1);closepanelview()"><?php echo $this->translate('SIGNIN');?></a></div>
+  </div>
+</div>
+<!--- Fill Up Form --------- -->
+<div class="page-text" ng-if="showloginsign=='signup2'">
+  <div class="socialpost-box">
+    <h1 class="heading"><?php echo $this->translate('SIGNUP_STEP2');?></h1>
+    <ul class="login-box">
+      <li>
+        <label><?php echo $this->translate('ABOUT_ME');?></label>
+      </li>
+      <li>
+        <textarea id="about_me" name="about_me" ng-model="aboutMe"></textarea>
+      </li>
+      <li>
+        <label><?php echo $this->translate('GENDER');?></label>
+      </li>
+      <li>
+        <select id="signgender" name="signgender" ng-model="signgender">
+          <option value=''><?php echo $this->translate('SELECT');?></option>
+          <option value="m"><?php echo $this->translate('SC_MALE');?></option>
+          <option value="f"><?php echo $this->translate('SC_FEMALE');?></option>
+        </select>
+      </li>
+      <li>
+        <label><?php echo $this->translate('BIRTHDATE');?></label>
+      </li>
+      <li>
+        <select id="signbirthday" name="signbirthday" ng-model="signbirthday" ng-options="opt.key for opt in birthdayArr track by opt.key">
+          <option value=''><?php echo $this->translate('SC_DAY');?></option>
+        </select>
+        <select id="signbirthmonth" name="signbirthmonth" ng-model="signbirthmonth" ng-options="opt.val for opt in birthmonthArr track by opt.key">
+          <option value=''><?php echo $this->translate('SC_MONTH');?></option>
+        </select>
+        <select id="signbirthyear" name="signbirthyear" ng-model="signbirthyear" ng-options="opt.key for opt in birthyearArr track by opt.key">
+          <option value=''><?php echo $this->translate('SC_YEAR');?></option>
+        </select>
+      </li>
+      <li>
+        <label><?php echo $this->translate('LOCATION');?></label>
+      </li>
+      <li>
+        <input type="text" id="location" name="location" ng-model="location" />
+      </li>
+      <li>
+        <label><?php echo $this->translate('PHONE');?></label>
+      </li>
+      <li>
+        <input type="text" id="phone" name="phone" ng-model="phone" />
+      </li>
+      <li>
+        <label><?php echo $this->translate('ADDRESS');?></label>
+      </li>
+      <li>
+        <textarea id="saddress" name="address" ng-model="address" ></textarea>
+      </li>
+      <li>
+        <label><?php echo $this->translate('COUNTRY');?></label>
+      </li>
+      <li>
+        <select id="signcountry" name="signcountry" ng-model="signcountry" ng-options="opt.country for opt in profileData.countrylist track by opt.id">
+        </select>
+      </li>
+      <li>
+        <label><?php echo $this->translate('STATE');?></label>
+      </li>
+      <li>
+        <input type="text" id="state" name="state" ng-model="state" />
+      </li>
+      <li>
+        <label><?php echo $this->translate('CITY');?></label>
+      </li>
+      <li>
+        <input type="text" id="city" name="city" ng-model="city" />
+      </li>
+      <li>
+        <label><?php echo $this->translate('ZIP');?></label>
+      </li>
+      <li>
+        <input type="text" id="zip" name="zip" ng-model="zip" />
+      </li>
+      <li>
+        <button class="login_btn button {{pageFontFamily}} {{ pContSize.class }}" ng-style="{'background-color': primaryButtonBgColor,'color': buttonTextColor}" ng-click="savesignup2('<?php echo $this->appId; ?>','<?php echo $this->uploadMode; ?>',ScUserId,aboutMe,signgender,signbirthday,signbirthmonth,signbirthyear,location,phone,address,signcountry,state,city,zip);closepanelview()"><?php echo $this->translate('SC_SAVE');?></button>
+      </li>
+    </ul>
+  </div>
+</div>
+<!--- Common Search --------- -->
+<div id="appypie-search-section" ng-if="showloginsign=='welcome' || showloginsign=='comments' || showloginsign=='stream' || showloginsign=='kluster' || showloginsign=='klusterlisting' || showloginsign=='top100' || showloginsign=='featured' || showloginsign=='searchlist'">
+  <input type="text" placeholder="<?php echo $this->translate('SC_SEARCH'); ?>..." class="filled_inp" id="search" name="search" ng-model="search">
+  <input type="button" class="searchbtn" ng-style="{'background-color': primaryButtonBgColor,'color': buttonTextColor}" value="<?php echo $this->translate('SC_SEARCH'); ?>" ng-click="searchUser('<?php echo $this->appId ?>',ScUserId,search);">
+</div>
+<!--- Welcome User --------- -->
+<div ng-if="ScUserId!=''" class="page-text {{label1?label1:'hide'}}">
+  <div class="socialWall-container">
+    <div class="appPost-middlepan" ng-repeat="dashboardRow in dashboardData.data">
+      <div class="section_post_div">
+        <div class="socialApp-image iconz-user" ng-if="dashboardRow.avatar==''"></div>
+        <div class="socialApp-image" ng-if="dashboardRow.avatar!=''"><img ng-src="<?php echo $url?>{{dashboardRow.avatar}}"></div>
+        <div class="tpHead"><span class="blueHead" ng-bind-html="dashboardRow.username"></span> <span ng-if="dashboardRow.post_type=='image'"><?php echo $this->translate('SC_POST_NEW_PHOTO');?></span> <span ng-if="dashboardRow.post_type=='video'"><?php echo $this->translate('SC_POST_NEW_VIDEO');?></span> <span ng-if="dashboardRow.post_type=='text'"><?php echo $this->translate('SC_POST_NEW_STATUS');?></span></div>
+        <div class="postSection">
+          <div class="postContainer">
+            <h2 ng-bind-html="dashboardRow.message"></h2>
+            <div ng-init="newurl = changeMp4toOgg(dashboardRow.video)"></div>
+            <div class="socialPost-img" ng-if="dashboardRow.attached==1 && dashboardRow.post_type=='image'"><img ng-src="<?php echo $url?>{{dashboardRow.image}}"></div>
+            <div class="socialPost-img" ng-if="dashboardRow.attached==1 && dashboardRow.post_type=='video'">
+              <video width="100%" height="100%" controls>
+                <source ng-src="{{dashboardRow.video}}" type="video/mp4">
+                <source ng-src="{{newurl}}" type="video/ogg">
+                <?php echo $this->translate('BROWSER_SUPPORT_VIDEO');?> </video>
+            </div>
+          </div>
+          <div class="social-like-comment"> <a class="social_like iconz-thumbs-up" href="javascript:;" ng-click="postdetails('<?php echo $this->appId; ?>',ScUserId,dashboardRow.id,'likes',dashboardRow);closepanelview()" ng-bind-html="' '+dashboardRow.count_like+' <?php echo $this->translate('SC_LIKE');?>'"> </a> <a class="social_comment icon-chat-empty" href="javascript:;" ng-click="postdetails('<?php echo $this->appId; ?>',ScUserId,dashboardRow.id,'comments',dashboardRow);closepanelview()" ng-bind-html="' '+dashboardRow.count_comment+' <?php echo $this->translate('SC_COMMENT');?>'"></a> <span id="showReport"> <a ng-if="dashboardRow.report==0" class="social_comment icon-block-4" href="javascript:;" ng-click="report(ScUserId,'<?php echo $this->appId; ?>',dashboardRow.id,'post');closepanelview()"> <?php echo $this->translate('SC_REPORT');?></a> </span> <a ng-if="dashboardRow.report==1" class="social_comment icon-block-4" href="javascript:;"> <?php echo $this->translate('SC_REPORTED');?></a> </div>
+          <div class="postContainer">
+            <div class="socialComment">
+              <ul>
+                <li ng-repeat="commentsdata in dashboardRow.comments track by $index" ng-if="$index <= 4"> <span ng-if="dashboardRow.avatar!=''"><img class="socialC-image" width="50" height="50" ng-src="<?php echo $url?>{{dashboardRow.avatar}}"></span>
+                  <div class="socialcomment-txt">
+                    <div class="commentSocial"><span class="blueHead" ng-bind-html="commentsdata.username"></span> <span ng-bind-html="commentsdata.message"></span></div>
+                  </div>
+                </li>
+              </ul>
+              <span class="right-content" ng-if="dashboardRow.comments.length > 5"> <a href="javascript:;" ng-click="postdetails('<?php echo $this->appId; ?>',ScUserId,dashboardRow.id,'comments',dashboardRow);closepanelview()"><?php echo $this->translate('SC_VIEW_ALL');?></a></span> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--- Post Comment --------- -->
+<div class="page-text {{dashboardlabel2?dashboardlabel2:'hide'}}">
+  <div class="socialWall-container">
+    <div class="appPost-middlepan">
+      <div class="socialpost-box"> <span ng-if="userPostData.avatar==''" class="iconz-user f-left postUser"></span> <span ng-if="userPostData.avatar!=''"><img class="socialC-image" width="50" height="50" ng-src="<?php echo $url?>{{userPostData.avatar}}"></span>
+        <div class="like-comment">
+          <h4 ng-bind-html="userPostData.username"></h4>
+          <strong ng-bind-html="userPostData.addedon"></strong></div>
+        <div ng-init="newurl = changeMp4toOgg(userPostData.video)"></div>
+        <p class="clearAll img-video"> <img ng-if="userPostData.attached==1 && userPostData.posttype=='image'" width="100%" class="video" alt="" ng-src="<?php echo $url?>{{userPostData.image}}"> <span ng-if="userPostData.attached==1 && userPostData.posttype=='video'">
+          <video width="100%" height="100%" controls>
+            <source ng-src="{{userPostData.video}}" type="video/mp4">
+            <source ng-src="{{newurl}}" type="video/ogg">
+            <?php echo $this->translate('BROWSER_SUPPORT_VIDEO');?> </video>
+          </span> <span ng-bind-html="userPostData.message"></span> </p>
+      </div>
+      <div class="commentLike"> <span class="tab" ng-click="likecomments='comments'"><?php echo $this->translate('SC_COMMENT');?></span> <span class="tab" ng-click="likecomments='likes'"><?php echo $this->translate('SC_LIKE');?></span> </div>
+      <div class="domtab" ng-switch on="likecomments">
+        <div ng-switch-when="likes">
+          <ul>
+            <li ng-repeat="likeItem in userPostData.likes" class="likeData"> <span ng-bind-html="likeItem.addedon"> <?php echo $this->translate('BY');?> <strong class="orng-txt" ng-bind-html="likeItem.username"></strong> </li>
+          </ul>
+          <ul id="liking" class="play user">
+            <li>
+              <button ng-click="postLike('<?php echo $this->appId; ?>',ScUserId,userPostData.id,'likes',postRow)" ng-if="userPostData.like==1" class="button {{pageFontFamily}} {{ pContSize.class }}" ng-style="{'background-color': secondaryButtonBgColor,'color': buttonTextColor}"><?php echo $this->translate('SC_UNLIKE');?> </button>
+              <button ng-click="postLike('<?php echo $this->appId; ?>',ScUserId,userPostData.id,'likes',postRow)" ng-if="userPostData.like!=1" class="button {{pageFontFamily}} {{ pContSize.class }}" ng-style="{'background-color': primaryButtonBgColor,'color': buttonTextColor}"><?php echo $this->translate('SC_LIKE');?> </button>
+              <button ng-click="likecomments='comments'" class="button {{pageFontFamily}} {{ pContSize.class }}" ng-style="{'background-color': secondaryButtonBgColor,'color': buttonTextColor}"><?php echo $this->translate('SC_COMMENT');?></button>
+            </li>
+          </ul>
+        </div>
+        <div ng-switch-default>
+          <ul id="comments" class="play login-box">
+            <li ng-repeat="commentItem in userPostData.comments"><span class="right-content">
+              <h4 ng-bind-html="commentItem.message"></h4>
+              <span><span ng-bind-html="commentItem.addedon"></span> <?php echo $this->translate('BY');?> <strong class="orng-txt" ng-bind-html="commentItem.username"></strong></span> </span> </li>
+            <li>
+              <textarea id="comment" name="comment" ng-model="message"></textarea>
+              <button ng-click="saveComment('<?php echo $this->appId; ?>',ScUserId,userPostData.id,message,postRow);" class="button {{pageFontFamily}} {{ pContSize.class }}" ng-style="{'background-color': primaryButtonBgColor,'color': buttonTextColor}"> <?php echo $this->translate('SC_SAVE');?></button>
+            </li>
+            <li>
+              <button ng-click="postLike('<?php echo $this->appId; ?>',ScUserId,userPostData.id,'likes',postRow)" ng-if="userPostData.like==1" class="button {{pageFontFamily}} {{ pContSize.class }}" ng-style="{'background-color': secondaryButtonBgColor,'color': buttonTextColor}"><?php echo $this->translate('SC_UNLIKE');?> </button>
+              <button ng-click="postLike('<?php echo $this->appId; ?>',ScUserId,userPostData.id,'likes',postRow)" ng-if="userPostData.like!=1" class="button {{pageFontFamily}} {{ pContSize.class }}" ng-style="{'background-color': secondaryButtonBgColor,'color': buttonTextColor}"><?php echo $this->translate('SC_LIKE');?> </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!---  User Profile -------- -->
+<div class="page-text {{profilelabel2?profilelabel2:'hide'}}" id="middle-content-load">
+  <div class="profile-page" id="">
+    <div class="socialpost-box"> <i ng-if="profileData.userData.user.avatar==''" class="iconz-user"></i> <img ng-if="profileData.userData.user.avatar!=''" width="74" height="54" class="f-left" alt="" ng-src="<?php echo $url;?>{{profileData.userData.user.avatar}}">
+      <div class="video_text full">
+        <h4 ng-class="paHeSize" ng-bind-html="profileData.userData.user.name"></h4>
+        <span ng-if="ScUserId==profileData.userData.user.userId">
+        <button class="button {{pageFontFamily}} {{ pContSize.class }}" ng-style="{'background-color': primaryButtonBgColor,'color': buttonTextColor}" ng-click="showeditprofile();closepanelview()"><?php echo $this->translate('SC_EDIT_PROFILE'); ?></button>
+        </span> <span ng-if="ScUserId!=profileData.userData.user.userId">
+        <button class="follow" ng-show="(profileData.friendList|filter:profileData.userData.user.userId:true).length > 0" ng-click="subcribedfrdUnfrd('<?php echo $this->appId; ?>',ScUserId,profileData.userData.user.userId,'profile')"><?php echo $this->translate('SC_FOLLOWING');?></button>
+        </span><span ng-if="ScUserId!=profileData.userData.user.userId">
+        <button class="follow" ng-show="profileData.friendList==null || (profileData.friendList|filter:profileData.userData.user.userId:true).length ==''" ng-click="subcribedfrdUnfrd('<?php echo $this->appId; ?>',ScUserId,profileData.userData.user.userId,'profile')"><?php echo $this->translate('SC_FOLLOW');?></button>
+        </span><span ng-if="ScUserId!=profileData.userData.user.userId">
+        <button ng-show="profileData.subscribedList==null || (profileData.subscribedList|filter:profileData.userData.user.userId:true).length ==''"  ng-click="subscribe('<?php echo $this->appId; ?>',ScUserId,profileData.userData.user.userId,'profile')"><?php echo $this->translate('SC_SUBSCRIBE');?></button>
+        </span><span ng-if="ScUserId!=profileData.userData.user.userId">
+        <button ng-show="(profileData.subscribedList|filter:profileData.userData.user.userId:true).length > 0"  ng-click="subscribe('<?php echo $this->appId; ?>',ScUserId,profileData.userData.user.userId,'profile')"><?php echo $this->translate('SC_UNSUBSCRIBE');?></button>
+        </span> </div>
+      <div class="video_text full clearAll">
+        <div class="follow-boxes">
+          <ul>
+            <li ng-if="profileData.userData.user.num_followers<=0"><span class="cont" ng-bind-html="profileData.userData.user.num_followers"></span><span><?php echo $this->translate('SC_FOLLOWERS'); ?></span></li>
+            <li ng-if="profileData.userData.user.num_followers > 0" ng-click="followerlist('<?php echo $this->appId; ?>',ScUserId,profileData.userData.user.userId);"><span class="cont" ng-bind-html="profileData.userData.user.num_followers"></span><span><?php echo $this->translate('SC_FOLLOWERS'); ?></span></li>
+            <li ng-if="profileData.userData.user.num_following<=0"><span class="cont" ng-bind-html="profileData.userData.user.num_following"></span> <span><?php echo $this->translate('SC_FOLLOWING'); ?></span> </li>
+            <li ng-if="profileData.userData.user.num_following > 0" ng-click="followinglist('<?php echo $this->appId; ?>',ScUserId,profileData.userData.user.userId);"><span class="cont" ng-bind-html="profileData.userData.user.num_following"></span> <span><?php echo $this->translate('SC_FOLLOWING'); ?></span> </li>
+            <li ng-if="profileData.userData.user.num_subscriber<=0"><span class="cont" ng-bind-html="profileData.userData.user.num_subscriber"></span> <span> <?php echo $this->translate('SC_SUBSCRIBERS'); ?> </span> </li>
+            <li ng-if="profileData.userData.user.num_subscriber > 0" ng-click="subscriberlist('<?php echo $this->appId; ?>',ScUserId,profileData.userData.user.userId);"><span class="cont" ng-bind-html="profileData.userData.user.num_subscriber"></span> <span> <?php echo $this->translate('SC_SUBSCRIBERS'); ?> </span> </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="commentLike"> <span class="tab" ng-click="userProfile='posts'"><i class="icon-play-circle2-1"></i></span> <span class="tab" ng-click="userProfile='user'"><i class="iconz-user"></i></span> <span class="tab" ng-click="userProfile='likes'"><i class="icon-heart-1"></i></span> <span class="tab" ng-click="userProfile='comments'"><i class="icon-chat-empty"></i></span> </div>
+    <div class="domtab" ng-switch on="userProfile"> 
+      <!-- ============= POSTS =============== -->
+      <div ng-switch-default>
+        <ul class="play">
+          <li ng-repeat="posts in profileData.userData.posts"> <a ng-if="posts.attached==1" ng-click="postdetail('test')" href="javascript:;"> <img width="74" height="54" ng-src="<?php echo $url?>{{posts.image}}" alt="" class="f-left"> </a> <span class="right-content">
+            <h2 ng-bind-html="posts.message.substring(0,50)"></h2>
+            <h4><a ng-click="postdetails('<?php echo $this->appId; ?>',ScUserId,posts.id,'comments');closepanelview()" href="javascript:;"><?php echo $this->translate('VIEW_MORE'); ?></a></h4>
+            <span ng-bind-html="posts.addedon"></span> <span ng-if="posts.country > 0"> <span><img width="16" height="16" ng-src="<?php echo $url?>{{posts.country_flag}}" alt=""> <span ng-bind-html="posts.country"></span></span></span> </span> </li>
+          <li ng-if="profileData.userData.posts==null"><?php echo $this->translate('SC_NO_POSTS');?></li>
+        </ul>
+      </div>
+      <!-- ============= Profile =============== -->
+      <div ng-switch-when="user">
+        <ul class="play user">
+          <li><span ng-bind-html="profileData.userData.user.name"></span> <span ng-if="profileData.userData.user.gender=='m'">(<?php echo $this->translate(SC_MALE)?>)</span> <span ng-if="profileData.userData.user.gender=='f'">(<?php echo $this->translate(SC_FEMALE)?>)</span> </li>
+          <li ng-if="profileData.userData.user.country > 0"> <span><img width="16" height="16" ng-src="<?php echo $url?>{{profileData.userData.user.country_flag}}" alt=""> <span ng-bind-html="profileData.userData.user.country"></span></span></li>
+          <li><span><strong ng-bind-html="'<?php echo $this->translate('SC_POSTS'); ?> :' +profileData.userData.user.num_posts"></strong></span></li>
+          <li ng-if="profileData.userData.user.aboutme !=''"><span><strong><?php echo $this->translate('DESCRIPTION'); ?> </strong> <span ng-bind-html="profileData.userData.user.aboutme"></span></li>
+          <span><strong ng-bind-html="'<?php echo $this->translate('SC_MEMBER_SINCE'); ?> : '+profileData.userData.user.addedon"></strong></span>
+        </ul>
+      </div>
+      <!-- ============= LIKES =============== -->
+      <div ng-switch-when="likes">
+        <ul class="play">
+          <li ng-repeat="likes in profileData.userData.likes"> <a ng-if="likes.attached==1" ng-click="postdetail('test')" href="javascript:;"> <img width="74" height="54" ng-src="<?php echo $url?>{{likes.image}}" alt="" class="f-left"> </a> <span class="right-content">
+            <h2><a ng-click="postdetail('test')" href="javascript:;" ng-bind-html="likes.message.substring(0,50)"></a></h2>
+            <span><span ng-bind-html="likes.addedon"></span> <?php echo $this->translate('BY'); ?> <a ng-click="userprofile('test')" href="javascript:;" ng-bind-html="likes.username"></a></span> </span> <span class="right-like"> <a onclick="javascript:;" class="like-icon" href="javascript:;" ng-bind-html="likes.count_like"></a> <a class="coment-icon" onclick="javascript:;" href="javascript:;" ng-bind-html="likes.count_comment"></a> </span> </li>
+          <li ng-if="profileData.userData.likes==null"><?php echo $this->translate('SC_NO_POSTS_LIKE');?></li>
+        </ul>
+      </div>
+      <!-- ============= Comments =============== -->
+      <div ng-switch-when="comments">
+        <ul class="play chat">
+          <li ng-repeat="comment in profileData.userData.comments"> <a ng-if="comment.attached==1" ng-click="postdetail('test')" href="javascript:;"> <img width="74" height="54" ng-src="<?php echo $url?>{{comment.image}}" alt="" class="f-left"></a> <strong class="Disblock" ng-bind-html="comment.comment"></strong> <span class="Disblock" ng-bind-html="comment.comment_date"></span> <span ng-if="comment.country > 0"><img width="16" height="16" ng-src="<?php echo $url?>{{comment.country_flag}}" alt=""> <span ng-bind-html="comment.country"></span></span> <span class="orng-txt Disblock"><strong><a ng-click="postdetail('test')" href="javascript:;"><?php echo $this->translate('SC_COMMENTED_ON');?> <span ng-bind-html="comment.username"></span>'s <?php echo $this->translate('SC_POST');?></a></strong> </span> </li>
+          <li ng-if="profileData.userData.comments==null"><?php echo $this->translate('SC_NO_POSTS_COMMENT');?></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!---  Edit Profile -------- -->
+<div class="page-text {{profilelabel3?profilelabel3:'hide'}}">
+  <div class="new-edit-profile">
+    <div class="socialpost-box">
+      <div class="msg-green" id="change-pass-msg" ng-bind-html="profileData.userData.msg"></div>
+      <h1 ng-class="paHeSize" ng-style="{'text-align':pagealign}"><?php echo $this->translate('SC_EDIT_PROFILE'); ?></h1>
+      <div class="socialpost-box edit-profile"> <i ng-if="profileData.userData.user.avatar==''" class="iconz-user"></i> <img ng-if="profileData.userData.user.avatar!=''" width="74" height="54" class="f-left" alt="" ng-src="<?php echo $url;?>{{profileData.userData.user.avatar}}">
+        <div class="video_text">
+          <h3><?php echo $this->translate('SC_ADD_PROFILE_PIC');?> </h3>
+          <!--span class="full-wide"><?php echo $this->translate('SC_PROFILE_PIC_PHONE');?></span> <span class="social-picUpload"><?php echo $this->translate('SC_PROFILE_PIC_LIBRARY');?></span--> </div>
+      </div>
+      <ul class="login-box">
+        <li>
+          <label><?php echo $this->translate('SC_NAME');?>:</label>
+        </li>
+        <li>
+          <input type="text" value="{{profileData.userData.user.name}}" id="name" name="name">
+        </li>
+        <li>
+          <label><?php echo $this->translate('SC_GENDER');?></label>
+        </li>
+        <li>
+          <select ng-init="selectProfileData('gender',profileData.userData.user.gender)" id="gender" name="gender" ng-model="gender">
+            <option value=''><?php echo $this->translate('SELECT');?></option>
+            <option value="m"><?php echo $this->translate('SC_MALE');?></option>
+            <option value="f"><?php echo $this->translate('SC_FEMALE');?></option>
+          </select>
+        </li>
+        <li>
+          <label><?php echo $this->translate('SC_DOB');?></label>
+        </li>
+        <li class="birthday">
+          <select id="birthday" name="birthday" ng-model="birthday" ng-options="opt.key for opt in birthdayArr track by opt.key">
+            <option value=''><?php echo $this->translate('SC_DAY');?></option>
+          </select>
+          <select id="birthmonth" name="birthmonth" ng-model="birthmonth" ng-options="opt.val for opt in birthmonthArr track by opt.key">
+            <option value=''><?php echo $this->translate('SC_MONTH');?></option>
+          </select>
+          <select id="birthyear" name="birthyear" ng-model="birthyear" ng-options="opt.key for opt in birthyearArr track by opt.key">
+            <option value=''><?php echo $this->translate('SC_YEAR');?></option>
+          </select>
+        </li>
+        <li>
+          <label><?php echo $this->translate('SC_COUNTRY');?></label>
+        </li>
+        <li>
+          <div ng-init="selectCountry(profileData.userData.user.countryId,profileData.userData.user.country)"></div>
+          <select id="country" name="country" ng-model="country" ng-options="opt.country for opt in profileData.countrylist track by opt.id">
+          </select>
+        </li>
+        <li>
+          <label><?php echo $this->translate('SC_PHONE');?></label>
+        </li>
+        <li>
+          <input type="text" value="{{profileData.userData.user.phone}}" id="phone" name="phone">
+        </li>
+        <li>
+          <label><?php echo $this->translate('SC_DESC');?></label>
+        </li>
+        <li>
+          <textarea id="about_me" name="about_me" ng-bind-html="profileData.userData.user.aboutme"></textarea>
+        </li>
+        <li>
+          <button ng-click="saveprofile('<?php echo $this->appId; ?>',ScUserId);" id="saveprofile" class="button {{pageFontFamily}} {{ pContSize.class }}" ng-style="{'background-color': primaryButtonBgColor,'color': buttonTextColor}"><?php echo $this->translate('SC_SAVE');?></button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!---  User Stream -------- -->
+<div class="page-text" id="middle-content-load" ng-if="showloginsign=='stream'">
+  <div class="socialpost-box">
+    <select ng-init="mystreamfilter=streamData.filter" class="filter-select" ng-change="mystream('<?php echo $this->appId; ?>',ScUserId,mystreamfilter,1)" id="mystream_filter" name="mystream_filter" ng-model="mystreamfilter">
+      <option value=""><?php echo $this->translate('SC_ALL'); ?></option>
+      <option value="post"><?php echo $this->translate('SC_POSTS'); ?></option>
+      <option value="comment"><?php echo $this->translate('SC_COMMENTS'); ?></option>
+      <option value="follow"><?php echo $this->translate('SC_FOLLOWS'); ?></option>
+      <option value="like"><?php echo $this->translate('SC_LIKES'); ?></option>
+      <option value="subscribe"><?php echo $this->translate('SC_SUBSCRIBES'); ?></option>
+    </select>
+  </div>
+  <!-- User Listing View-->
+  <div class="socialpost-box top100" ng-if="streamData.data==null"><?php echo $this->translate('SC_NO_RECORD'); ?></div>
+  <div class="socialpost-box my-streamBox" ng-repeat="stream in streamData.data" ng-if="streamData.data!=null"> 
+    <!-- user like data -->
+    <div ng-if="stream.stream_type=='like' && stream.object_type=='post'"> <a href="javascript:void(0);" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,stream.from_id)"> <i ng-if="stream.from_avatar==''" class="iconz-user"></i> <img ng-if="stream.from_avatar!=''" width="74" height="54" ng-src="<?php echo $url?>{{stream.from_avatar}}" alt=""></a>
+      <div class="video_text full-txt"> <span ng-if="stream.ccode!=null" class="flag-icon flag-icon-{{stream.ccode | lowercase}}"></span> <a href="javascript:;" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,stream.from_id)" ng-bind-html="stream.from_name"></a>
+        <p><?php echo $this->translate('SC_LIKE_POST');?></p>
+        <p ng-bind-html="stream.addedon"></p>
+        <p ng-bind-html="stream.post.substring(0,50)"></p>
+        <p><a href="javascript:;" ng-click="postdetail('<?php echo $this->appId ?>',ScUserId,stream.post_id);"><?php echo $this->translate('VIEW_MORE'); ?></a></p>
+      </div>
+    </div>
+    <!-- user follow data -->
+    <div ng-if="stream.stream_type=='follow' && stream.object_type=='user'"> <a href="javascript:void(0);" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,stream.from_id)"> <i ng-if="stream.from_avatar==''" class="iconz-user"></i> <img ng-if="stream.from_avatar!=''" width="74" height="54" ng-src="<?php echo $url?>{{stream.from_avatar}}" alt=""> </a>
+      <div class="video_text full-txt"> <span ng-if="stream.ccode!=null" class="flag-icon flag-icon-{{stream.ccode | lowercase}}"></span> <a href="javascript:;" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,stream.from_id)" ng-bind-html="stream.from_name"></a>
+        <p><?php echo $this->translate('SC_FOLLOWING_USER');?> <span ng-if="stream.streamUser_id!=ScUserId" ng-bind-html="stream.streamUser"></span> <span ng-if="stream.streamUser_id==ScUserId"><?php echo $this->translate('YOU');?></span></p>
+        <p ng-bind-html="stream.addedon"></p>
+        <p ng-if="stream.streamUser_id!=ScUserId"><a href="javascript:;" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,stream.streamUser_id)"><?php echo $this->translate('VIEW'); ?> <span ng-bind-html="stream.streamUser"></span>'s <?php echo $this->translate('SC_PROFILE'); ?></a></p>
+      </div>
+    </div>
+    <!-- user comment data -->
+    <div ng-if="stream.stream_type=='comment' && stream.object_type=='comment'"> <a href="javascript:void(0);" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,stream.from_id)"> <i ng-if="stream.from_avatar==''" class="iconz-user"></i> <img ng-if="stream.from_avatar!=''" width="74" height="54" ng-src="<?php echo $url?>{{stream.from_avatar}}" alt=""> </a>
+      <div class="video_text full-txt"> <span ng-if="stream.ccode!=null" class="flag-icon flag-icon-{{stream.ccode | lowercase}}"></span> <a href="javascript:;" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,stream.from_id)" ng-bind-html="stream.from_name"></a>
+        <p><?php echo $this->translate('SC_COMMENTED_ON');?> <span ng-bind-html="stream.streamUser"></span>'s <?php echo $this->translate('SC_POST'); ?></p>
+        <p ng-bind-html="stream.addedon"></p>
+        <p ng-bind-html="stream.post.substring(0,50)"></p>
+        <p><a href="javascript:;" ng-click="postdetail('<?php echo $this->appId ?>',ScUserId,stream.post_id);"><?php echo $this->translate('VIEW_MORE'); ?></a></p>
+      </div>
+    </div>
+    <!-- user comment like data -->
+    <div ng-if="stream.stream_type=='commentlike' && stream.object_type=='comment'"> <a href="javascript:void(0);" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,stream.from_id)"> <i ng-if="stream.from_avatar==''" class="iconz-user"></i> <img ng-if="stream.from_avatar!=''" width="74" height="54" ng-src="<?php echo $url?>{{stream.from_avatar}}" alt=""> </a>
+      <div class="video_text full-txt"> <span ng-if="stream.ccode!=null" class="flag-icon flag-icon-{{stream.ccode | lowercase}}"></span> <a href="javascript:;" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,stream.from_id)" ng-bind-html="stream.from_name"></a>
+        <p><?php echo $this->translate('SC_LIKE');?> <span ng-bind-html="stream.streamUser"></span>'s <?php echo $this->translate('SC_COMMENT'); ?></p>
+        <p ng-bind-html="stream.addedon"></p>
+        <p ng-bind-html="stream.post.substring(0,50)"></p>
+        <p><a href="javascript:;" ng-click="postdetail('<?php echo $this->appId ?>',ScUserId,stream.post_id);"><?php echo $this->translate('VIEW_MORE'); ?></a></p>
+      </div>
+    </div>
+    <!-- user post data -->
+    <div ng-if="stream.stream_type=='post' && stream.object_type=='post'"> <span ng-if="stream.attached==1"><img width="74" height="54" ng-src="<?php echo $url?>{{stream.image}}" alt=""></span> <span ng-if="stream.attached!=1"><a href="javascript:void(0);" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,stream.from_id)"> <i ng-if="stream.from_avatar==''" class="iconz-user"></i> <img ng-if="stream.from_avatar!=''" width="74" height="54" ng-src="<?php echo $url?>{{stream.from_avatar}}" alt=""> </a></span>
+      <div class="video_text full-txt"> <span ng-if="stream.ccode!=null" class="flag-icon flag-icon-{{stream.ccode | lowercase}}"></span> <a href="javascript:;" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,stream.from_id)" ng-bind-html="stream.from_name"></a>
+        <p><?php echo $this->translate('SC_HAVE_NEW_POST');?></p>
+        <p ng-bind-html="stream.addedon"></p>
+        <p ng-bind-html="stream.post.substring(0,50)"></p>
+        <p><a href="javascript:;" ng-click="postdetail('<?php echo $this->appId ?>',ScUserId,stream.post_id);"><?php echo $this->translate('VIEW_MORE'); ?></a></p>
+      </div>
+    </div>
+    <!-- user subscribe data -->
+    <div ng-if="stream.stream_type=='subscribe' && stream.object_type=='user'"> <a href="javascript:void(0);" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,stream.from_id)"> <i ng-if="stream.from_avatar==''" class="iconz-user"></i> <img ng-if="stream.from_avatar!=''" width="74" height="54" ng-src="<?php echo $url?>{{stream.from_avatar}}" alt=""> </a>
+      <div class="video_text full-txt"> <span ng-if="stream.ccode!=null" class="flag-icon flag-icon-{{stream.ccode | lowercase}}"></span> <a href="javascript:;" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,stream.from_id)" ng-bind-html="stream.from_name"></a>
+        <p><?php echo $this->translate('SC_IS_SUBSCRIBED_TO');?> <span ng-if="stream.streamUser_id!=ScUserId" ng-bind-html="stream.streamUser"></span> <span ng-if="stream.streamUser_id==ScUserId"><?php echo $this->translate('YOU');?></span></p>
+        <p ng-bind-html="stream.addedon"></p>
+        <p ng-if="stream.streamUser_id!=ScUserId"><a href="javascript:;" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,stream.streamUser_id)"><?php echo $this->translate('VIEW'); ?> <span ng-bind-html="stream.streamUser"></span>'s <?php echo $this->translate('SC_PROFILE'); ?></a></p>
+      </div>
+    </div>
+  </div>
+  <!--/ User Listing View--> 
+</div>
+<!---  Kluster -------- -->
+<div class="page-text {{klusterlabel2?klusterlabel2:'hide'}}" id="middle-content-load"> <!--Main Section-->
+  <div class="socialpost-box "> <a class="filters-refresh" href="javascript:;"><span class="icon-spin3"></span> <?php echo $this->translate('SC_KLUSTER_DESC');?></a> </div>
+  <div class="socialpost-box top100" ng-if="klusterData.data==null"><?php echo $this->translate('SC_NO_RECORD'); ?></div>
+  <div class="socialpost-box" ng-if="klusterData.data!=null">
+    <ul class="user_msg kluster">
+      <li ng-repeat="kdata in klusterData.data"><a href="javascript:;" ng-click="klusterlist('<?php echo $this->appId ?>',ScUserId,kdata.id)"><span class="f-left" ng-bind-html="kdata.kluster"></span></a></li>
+    </ul>
+  </div>
+</div>
+<!---  Kluster Data Listing -------- -->
+<div  class="page-text {{klusterlabel3?klusterlabel3:'hide'}}">
+  <div class="socialpost-box"> <a class="filters-refresh" href="javascript:;"><span class="icon-spin3"></span> <?php echo $this->translate('SC_KLUSTER_DESC');?></a> </div>
+  <div class="socialpost-box letest" ng-repeat="kldata in klusterListData.data">
+    <div class="klustr_text"> <img ng-if="kldata.attached==1" width="74" height="54" class="f-left" alt="" ng-src="<?php echo $url?>{{kldata.image}}">
+      <h4><span ng-bind-html="kldata.message.substring(0,50)"></span> <a href="javascript:;" ng-click="postdetails('<?php echo $this->appId; ?>',ScUserId,kldata.id,'comments');"><?php echo $this->translate('VIEW_MORE');?></a></h4>
+      <span><span ng-bind-html="kldata.addedon"></span> <?php echo $this->translate('BY');?> <a class="orange" href="javascript:;" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,kldata.userid)" ng-bind-html="kldata.username"></a></span> <span class="smallp"><em ng-if="kldata.country!=''" class="flag-icon flag-icon-{{kldata.ccode | lowercase}}"></em> <span ng-bind-html="kldata.country"></span></span> </div>
+    <div class="right-content"> <span class="pic"> <a href="javascript:;" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,kldata.userid)"><img class="f-left" alt="" ng-src="<?php echo $url?>{{kldata.avatar}}"></a> </span> <a onclick="javascript:;" class="icon-heart-1 like-icon" href="javascript:;" ng-bind-html="kldata.count_like"></a> <a onclick="javascript:;" class="icon-chat-empty coment-icon" href="javascript:;" ng-bind-html="kldata.count_comment"></a> </div>
+  </div>
+</div>
+<!---  Top 100 Users -------- -->
+<div class="page-text" id="middle-content-load" ng-if="showloginsign=='top100'">
+  <div class="socialpost-box "> <a class="filters-refresh icon-spin3" href="javascript:;"> <span ng-bind-html="top100view"></span></a>
+    <p class="clearAll">
+      <select style="margin-left:10px;" class="filter-select" id="top100filter" name="top100filter" ng-model="top100filter" ng-change="top100users('<?php echo $this->appId; ?>',ScUserId,top100filter,top100country.id);closepanelview()">
+        <option value=""><?php echo $this->translate('SC_ALL');?></option>
+        <option value="subscribers"><?php echo $this->translate('SC_SUBSCRIBERS');?></option>
+        <option value="followers"><?php echo $this->translate('SC_FOLLOWERS');?></option>
+        <option value="posts"><?php echo $this->translate('SC_POSTS');?></option>
+      </select>
+      <select class="filter-select" id="top100country" name="top100country" ng-model="top100country" ng-options="opt.country for opt in top100Data.countrylist track by opt.id" ng-change="top100users('<?php echo $this->appId; ?>',ScUserId,top100filter,top100country.id);closepanelview()">
+        <option value=''><?php echo $this->translate('ALL_COUNTRY');?></option>
+      </select>
+    </p>
+  </div>
+  <div class="socialpost-box top100" ng-if="top100Data.data==null"><?php echo $this->translate('SC_NO_RECORD'); ?></div>
+  <div class="socialpost-box top100" ng-if="top100Data.data!=null" ng-repeat="topData in top100Data.data"> <a href="javascript:void(0);" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,topData.userId);closepanelview()"> <i ng-if="topData.avatar==''" class="iconz-user"></i> <img height="50" width="50" ng-if="topData.avatar!=''" ng-src="<?php echo $url?>{{topData.avatar}}"></a>
+    <div class="video_text full-txt"> <a href="javascript:;" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,topData.userId);closepanelview()"  ng-bind-html="topData.name"></a>
+      <p ng-if="topData.country!=null"><span class="flag-icon flag-icon-{{topData.ccode | lowercase}}"></span> <a href="javascript:;" ng-bind-html="topData.country"></a></p>
+    </div>
+    <div class="right-content">
+      <ul class="listing">
+        <li><?php echo $this->translate('SC_FOLLOWERS');?>: <span ng-bind-html="topData.followers"></span></li>
+        <li><?php echo $this->translate('SC_SUBSCRIBERS');?>: <span ng-bind-html="topData.subscribers"></span></li>
+        <li><?php echo $this->translate('SC_POSTS');?>: <span ng-bind-html="topData.posts"></span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!---  Who to Follow -------- -->
+<div class="page-text" id="middle-content-load" ng-if="showloginsign=='featured'">
+  <div class="socialpost-box "> <a class="filters-refresh icon-spin3" href="javascript:;"> <?php echo $this->translate('FOLLOW_USERS'); ?></a> <a href="javascript:;">
+    <button class="f-right button {{pageFontFamily}} {{ pContSize.class }}" ng-style="{'background-color': primaryButtonBgColor,'color': buttonTextColor}" ng-click="followall('<?php echo $this->appId; ?>',ScUserId,featuredData.data);"><?php echo $this->translate('FOLLOW_ALL'); ?></button>
+    </a> </div>
+  <div class="socialpost-box top100" ng-if="featuredData.data==null"><?php echo $this->translate('SC_NO_RECORD'); ?></div>
+  <div class="socialpost-box top100" ng-if="featuredData.data!=null" ng-repeat="fData in featuredData.data"> <a href="javascript:void(0);" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,fData.userId);closepanelview()"> <i ng-if="fData.avatar==''" class="iconz-user"></i> <img height="50" width="50" ng-if="fData.avatar!=''" ng-src="<?php echo $url?>{{fData.avatar}}"></a>
+    <div class="video_text full-txt"> <a href="javascript:;" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,fData.userId);closepanelview()"  ng-bind-html="fData.name"></a>
+      <p ng-if="fData.country!=null"><span class="flag-icon flag-icon-{{fData.ccode | lowercase}}"></span> <a href="javascript:;" ng-bind-html="fData.country"></a></p>
+    </div>
+    <span ng-if="featuredData.friendList!='' || friendList!=null">
+    <div class="right-content" ng-show="(featuredData.friendList|filter:fData.userId:true).length > 0">
+      <button ng-click="subcribedfrdUnfrd('<?php echo $this->appId; ?>',ScUserId,fData.userId,'featured')"><?php echo $this->translate('SC_FOLLOWING');?></button>
+    </div>
+    <div class="right-content" ng-show="(featuredData.friendList|filter:fData.userId:true).length =='' && fData.userId!=ScUserId">
+      <button ng-click="subcribedfrdUnfrd('<?php echo $this->appId; ?>',ScUserId,fData.userId,'featured')"><?php echo $this->translate('SC_FOLLOW');?></button>
+    </div>
+    </span> <span ng-if="featuredData.friendList=='' || featuredData.friendList==null">
+    <div class="right-content" ng-if="fData.userId!=ScUserId">
+      <button ng-click="subcribedfrdUnfrd('<?php echo $this->appId; ?>',ScUserId,fData.userId,'featured')"><?php echo $this->translate('SC_FOLLOW');?></button>
+    </div>
+    </span> </div>
+</div>
+<!---  Settings -------- -->
+<div class="page-text {{settinglabel2?settinglabel2:'hide'}} {{setting1label2?setting1label2:'hide'}}">
+  <div class="notification-setting">
+    <div class="socialpost-box ">
+      <div class="msg-green" id="change-pass-msg" ng-bind-html="mSettingData.settingmsg"></div>
+      <a class="notify" href="javascript:void(0);" ng-click="accountsetting();closepanelview()"><span class="f-right icon-right-open-1"></span><strong><?php echo $this->translate('SC_ACCOUNT');?></strong></a> <a class="notify" href="javascript:void(0);" ng-click="showemailsetting();closepanelview()"><span class="f-right icon-right-open-1"></span><strong><?php echo $this->translate('SC_EMAIL');?></strong></a> </div>
+    <div class="socialpost-box ">
+      <p><?php echo $this->translate('SC_CONTROL_COMMENT_POSTS');?></p>
+      <select name="ntf_comment" id="ntf_comment" ng-model="ntfcomment" ng-change="changeMessageSetting('<?php echo $this->appId; ?>',ScUserId,'ntf_comment',ntfcomment)">
+        <option value=""><?php echo $this->translate('SELECT');?></option>
+        <option value="0"><?php echo $this->translate('SC_ANYONE');?></option>
+        <option value="1"><?php echo $this->translate('SC_PPL_I_FOLLOWING_SUBSCRIBED');?></option>
+        <option value="2"><?php echo $this->translate('SC_NO_ONE');?></option>
+      </select>
+    </div>
+  </div>
+</div>
+<!---  Account Settings -------- -->
+<div class="page-text account-page {{settinglabel3?settinglabel3:'hide'}}">
+  <div class="socialpost-box">
+    <div class="msg-red" ng-bind-html="mSettingData.msg"></div>
+    <ul class="login-box">
+      <li>
+        <label><?php echo $this->translate('SC_USERNAME'); ?></label>
+        <span class="check-availability msg-red" id="chkusername"></span></li>
+      <li>
+        <input type="text" id="setting_username" name="setting_username" value="{{mSettingData.username}}" ng-model="settingusername">
+      </li>
+      <li>
+        <label><?php echo $this->translate('SC_EMAIL_ADDRESS'); ?></label>
+        <span class="check-availability msg-red" id="chkemail"></span></li>
+      <li>
+        <input type="text" id="setting_email" name="setting_email" value="{{mSettingData.email}}" ng-model="settingemail">
+      </li>
+      <li>
+        <button class="socailBtn-save button {{pageFontFamily}} {{ pContSize.class }}" ng-style="{'background-color': primaryButtonBgColor,'color': buttonTextColor}" ng-click="settingSaveAccount('<?php echo $this->appId; ?>',ScUserId)"><?php echo $this->translate('SC_SAVE'); ?></button>
+        <button class="change-pass button {{pageFontFamily}} {{ pContSize.class }}" ng-style="{'background-color': secondaryButtonBgColor,'color': buttonTextColor}" ng-click="showchangepassword();closepanelview()"><?php echo $this->translate('SC_CHANGE_PASSWORD'); ?></button>
+      </li>
+    </ul>
+  </div>
+</div>
+<!---  Change Password -------- -->
+<div class="page-text {{settinglabel4?settinglabel4:'hide'}}">
+  <div class="change-password">
+    <div class="socialpost-box">
+      <h4 ng-class="paHeSize" ng-style="{'text-align':pagealign}"><?php echo $this->translate('SC_CHANGE_YOUR_PASSWORD');?>:</h4>
+      <div class="msg-red" id="change-pass-msg" ng-bind-html="mSettingData.passwordmsg"></div>
+      <br />
+      <ul class="login-box">
+        <li>
+          <label><?php echo $this->translate('SC_CURRENT_PASSWORD');?></label>
+        </li>
+        <li>
+          <input type="password" name="cpass" id="cpass">
+        </li>
+        <li>
+          <label><?php echo $this->translate('SC_NEW_PASSWORD');?></label>
+        </li>
+        <li>
+          <input type="password" name="newpass" id="newpass">
+        </li>
+        <li>
+          <label><?php echo $this->translate('SC_CONFIRM_PASSWORD');?></label>
+        </li>
+        <li>
+          <input type="password" name="repass" id="repass">
+        </li>
+        <li>
+          <button ng-click="changePassword('<?php echo $this->appId; ?>',ScUserId)" class="button {{pageFontFamily}} {{ pContSize.class }}" ng-style="{'background-color': primaryButtonBgColor,'color': buttonTextColor}"><?php echo $this->translate('SC_CHNAGE_PASSWORD');?></button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!---  Email Settings -------- -->
+<div class="page-text email {{setting1label3?setting1label3:'hide'}}">
+  <div class="socialpost-box letest">
+    <div class="msg-green" id="email-msg" ng-bind-html="mSettingData.emailsettingmsg"></div>
+    <div class="email-wrapper">
+      <div class="video_text"> <strong><?php echo $this->translate('SC_SEND_ME_MAIL_EVENTS');?>:</strong> </div>
+    </div>
+    <div class="email-wrapper">
+      <div class="video_text"> <strong><?php echo $this->translate('SC_WHEN_SOMEONE_FOLLOW_ME');?></strong> </div>
+      <div class="f-right">
+        <input type="checkbox" id="mail_them_when_follow" name="mail_them_when_follow" value="1" ng-model="mailthemwhenfollow" ng-false-value="'0'" ng-true-value="'1'" ng-checked="mSettingData.mail_them_when_follow">
+      </div>
+    </div>
+    <div class="email-wrapper">
+      <div class="video_text"> <strong><?php echo $this->translate('SC_WHEN_SOMEONE_SUBSCRIBE_ME');?></strong> </div>
+      <div class="f-right">
+        <input type="checkbox" id="mail_them_when_subscribe" name="mail_them_when_subscribe" value="1" ng-model="mailthemwhensubscribe" ng-false-value="'0'" ng-true-value="'1'" ng-checked="mSettingData.mail_them_when_subscribe">
+      </div>
+    </div>
+    <div class="email-wrapper">
+      <div class="video_text"> <strong><?php echo $this->translate('SC_WHEN_SOMEONE_COMMENT_ON_POST');?></strong> </div>
+      <div class="f-right">
+        <input type="checkbox" id="mail_them_when_comment_on_posts" name="mail_them_when_comment_on_posts" value="1" ng-model="mailthemwhencommentonposts" ng-false-value="'0'" ng-true-value="'1'" ng-checked="mSettingData.mail_them_when_comment_on_posts">
+      </div>
+    </div>
+    <div class="email-wrapper">
+      <div class="video_text"> <strong><?php echo $this->translate('SC_WHEN_SOMEONE_LIKE_POSTS');?></strong> </div>
+      <div class="f-right">
+        <input type="checkbox" id="mail_them_when_like_posts" name="mail_them_when_like_posts" value="1" ng-model="mailthemwhenlikeposts" ng-false-value="'0'" ng-true-value="'1'" ng-checked="mSettingData.mail_them_when_like_posts">
+      </div>
+    </div>
+    <div class="email-wrapper">
+      <button ng-click="changeEmailSetting('<?php echo $this->appId; ?>',ScUserId)" class="button {{pageFontFamily}} {{ pContSize.class }}" ng-style="{'background-color': primaryButtonBgColor,'color': buttonTextColor}"><?php echo $this->translate('SC_SAVE'); ?></button>
+    </div>
+  </div>
+</div>
+<!---  Follower Users List -------- -->
+<div class="page-text" id="middle-content-load" ng-if="showloginsign=='follower'">
+  <div class="socialpost-box "> <a class="filters-refresh icon-spin3" href="javascript:;"> <?php echo $this->translate('SC_YOU_HAVE'); ?> <span ng-bind-html="followerListData.followerList.length"></span> <?php echo $this->translate('SC_FOLLOWERS'); ?></a> </div>
+  <div class="socialpost-box top100" ng-repeat="flistData in followerListData.followerList" ng-if="flistData.id!=null"> <a href="javascript:void(0);" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,flistData.id);closepanelview()"> <i ng-if="flistData.avatar==''" class="iconz-user"></i> <img height="50" width="50" ng-if="flistData.avatar!=''" ng-src="<?php echo $url?>{{flistData.avatar}}"></a>
+    <div class="video_text full-txt"> <a href="javascript:;" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,flistData.id);closepanelview()" ng-bind-html="flistData.name"></a>
+      <p ng-if="flistData.country!=null"><span class="flag-icon flag-icon-{{flistData.ccode | lowercase}}"></span> <a href="javascript:;" ng-bind-html="flistData.country"></a></p>
+    </div>
+    <div class="right-content">
+      <ul class="listing">
+        <li><?php echo $this->translate('SC_FOLLOWERS');?>: <span ng-bind-html="flistData.followers"></span></li>
+        <li><?php echo $this->translate('SC_SUBSCRIBERS');?>: <span ng-bind-html="flistData.subscribers"></span></li>
+        <li><?php echo $this->translate('SC_POSTS');?>: <span ng-bind-html="flistData.posts"></span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!---  Following Users List -------- -->
+<div class="page-text" id="middle-content-load" ng-if="showloginsign=='following'">
+  <div class="socialpost-box "> <a class="filters-refresh icon-spin3" href="javascript:;"> <?php echo $this->translate('YOU_ARE_FOLLOWING_TO'); ?> <span ng-bind-html="followingListData.followingList.length"></span> <?php echo $this->translate('SC_PEOPLE'); ?></a> </div>
+  <div class="socialpost-box top100" ng-repeat="flData in followingListData.followingList" ng-if="flData.id!=null"> <a href="javascript:void(0);" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,flData.id);closepanelview()"> <i ng-if="flData.avatar==''" class="iconz-user"></i> <img height="50" width="50" ng-if="flData.avatar!=''" ng-src="<?php echo $url?>{{flData.avatar}}"></a>
+    <div class="video_text full-txt"> <a href="javascript:;" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,flData.id);closepanelview()" ng-bind-html="flData.name"></a>
+      <p ng-if="flData.country!=null"><span class="flag-icon flag-icon-{{flData.ccode | lowercase}}"></span> <a href="javascript:;" ng-bind-html="flData.country"></a></p>
+    </div>
+    <div class="right-content">
+      <ul class="listing">
+        <li><?php echo $this->translate('SC_FOLLOWERS');?>: <span ng-bind-html="flData.followers"></span></li>
+        <li><?php echo $this->translate('SC_SUBSCRIBERS');?>: <span ng-bind-html="flData.subscribers"></span></li>
+        <li><?php echo $this->translate('SC_POSTS');?>: <span ng-bind-html="flData.posts"></span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!---  Subscribers List -------- -->
+<div class="page-text" id="middle-content-load" ng-if="showloginsign=='subscriber'">
+  <div class="socialpost-box "> <a class="filters-refresh icon-spin3" href="javascript:;"> <?php echo $this->translate('SC_YOU_HAVE'); ?> <span ng-bind-html="subscriberListData.subscriberList.length"></span> <?php echo $this->translate('SC_SUBSCRIBERS'); ?></a> </div>
+  <div class="socialpost-box top100" ng-repeat="subListData in subscriberListData.subscriberList" ng-if="subListData.id!=null"> <a href="javascript:void(0);" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,subListData.id);closepanelview()"> <i ng-if="subListData.avatar==''" class="iconz-user"></i> <img height="50" width="50" ng-if="subListData.avatar!=''" ng-src="<?php echo $url?>{{subListData.avatar}}"></a>
+    <div class="video_text full-txt"> <a href="javascript:;" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,subListData.id);closepanelview()" ng-bind-html="subListData.name"></a>
+      <p ng-if="subListData.country!=null"><span class="flag-icon flag-icon-{{subListData.ccode | lowercase}}"></span> <a href="javascript:;" ng-bind-html="subListData.country"></a></p>
+    </div>
+    <div class="right-content">
+      <ul class="listing">
+        <li><?php echo $this->translate('SC_FOLLOWERS');?>: <span ng-bind-html="subListData.followers"></span></li>
+        <li><?php echo $this->translate('SC_SUBSCRIBERS');?>: <span ng-bind-html="subListData.subscribers"></span></li>
+        <li><?php echo $this->translate('SC_POSTS');?>: <span ng-bind-html="subListData.posts"></span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!---  Search List -------- -->
+<div class="page-text" ng-if="showloginsign=='searchlist'">
+  <div class="commentLike"> <span class="tab" ng-click="searchProfile='posts'"><?php echo $this->translate('SC_POSTS'); ?></span> <span class="tab" ng-click="searchProfile='user'"><?php echo $this->translate('SC_PEOPLE'); ?></span> </div>
+  <div class="domtab" ng-switch on="searchProfile" ng-if="showloginsign=='searchlist'"> 
+    <!-- ============= POSTS =============== -->
+    <div ng-switch-default>
+      <div class="page-text" id="middle-content-load">
+        <ul class="play people">
+          <li ng-repeat="searchPostData in searchData.post.data" ng-if="searchData.post.data.length > 0"> <img ng-if="searchPostData.attached==1" width="74" height="54" class="f-left" alt="" ng-src="<?php echo $url?>{{searchPostData.image}}"> <span class="video_text">
+            <h4><span ng-bind-html="searchPostData.message.substring(0,50)"></span> <a href="javascript:;" ng-click="postdetails('<?php echo $this->appId; ?>',ScUserId,searchPostData.id,'comments');"><?php echo $this->translate('VIEW_MORE');?></a></h4>
+            <span><span ng-bind-html="searchPostData.addedon"></span> <?php echo $this->translate('BY');?></a> <a href="javascript:;" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,searchPostData.userid)" ng-bind-html="searchPostData.username"></a></span> <span class="smallp"><em ng-if="searchPostData.country!=''" class="flag-icon flag-icon-{{searchPostData.ccode | lowercase}}"></em> <span ng-bind-html="searchPostData.country"></span></span> </span> </span>
+            <ul class="right-content listing right">
+              <li><?php echo $this->translate('SC_VIEWS');?>: <span ng-bind-html="searchPostData.count_viewed"></span></li>
+              <li><?php echo $this->translate('SC_LIKES');?>: <span ng-bind-html="searchPostData.count_like"></span></li>
+              <li><?php echo $this->translate('SC_COMMENTS');?>: <span ng-bind-html="searchPostData.count_comment"></span></li>
+            </ul>
+          </li>
+          <li ng-if="searchData.post.data==null"><?php echo $this->translate('SC_NO_RECORD'); ?></li>
+        </ul>
+      </div>
+    </div>
+    <!-- ============= User =============== -->
+    <div ng-switch-when="user">
+      <div class="page-text" id="middle-content-load">
+        <ul class="play people">
+          <li ng-repeat="searchUserData in searchData.user.data" ng-if="searchData.user.data.length > 0"> <a href="javascript:void(0);" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,searchUserData.userId);closepanelview()"> <i ng-if="searchUserData.avatar==''" class="iconz-user"></i> <img height="50" width="50" ng-if="searchUserData.avatar!=''" ng-src="<?php echo $url?>{{searchUserData.avatar}}"></a> <span class="video_text">
+            <h2><a href="javascript:;" ng-click="scProfile('<?php echo $this->appId ?>',ScUserId,searchUserData.userId);closepanelview()" ng-bind-html="searchUserData.name"></a></h2>
+            <span class="flag Disblock Disblock">
+            <p ng-if="searchUserData.country!=null"><span class="flag-icon flag-icon-{{searchUserData.ccode | lowercase}}"></span> <a href="javascript:;" ng-bind-html="searchUserData.country"></a></p>
+            </span> </span>
+            <ul class="right-content listing right">
+              <li><?php echo $this->translate('SC_FOLLOWERS');?>: <span ng-bind-html="searchUserData.followers"></span></li>
+              <li><?php echo $this->translate('SC_SUBSCRIBERS');?>: <span ng-bind-html="searchUserData.subscribers"></span></li>
+              <li><?php echo $this->translate('SC_POSTS');?>: <span ng-bind-html="searchUserData.posts"></span></li>
+            </ul>
+          </li>
+          <li ng-if="searchData.user.data==null"><?php echo $this->translate('SC_NO_RECORD'); ?></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!---  Simulator Popup -------- -->
+<div ng-show="showmsg=='YES'" id="msgbox"  class="over-all">
+  <div class="error-page big_error">
+    <h6><?php echo $this->translate('ERROR');?></h6>
+    <div class="error-text"> <span ng-bind-html="errorMsg || '<?php echo $this->translate('NOT_SUPPORT_SIMULATION_MODE');?>'"></span><a ng-click="showmsgSocial('showmsg', 'NO')" href="javascript://"><?php echo $this->translate('OK');?></a> </div>
+  </div>
+</div>
